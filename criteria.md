@@ -45,11 +45,11 @@ Two things worth knowing before you pick numbers:
 ## 1.
 
 <!-- Your criterion. It must name a number. -->
-
+For 10 pieces of human writing, no more than 1 is labelled has a combined score of .65 or more, which is labelled as high-confidence AI.
 
 
 **Why this target:**
-
+This helps with real human writing being wrongly called AI. There may be cases where the writing can be simple and plain, which is why there is a threshold of 1/10.
 
 
 ---
@@ -57,11 +57,11 @@ Two things worth knowing before you pick numbers:
 ## 2.
 
 <!-- Your criterion. -->
-
+For each run, the average combined score of 10 clearly AI written submission must be at least .20 higher than the average combined score of 10 clearly human written submissions.
 
 
 **Why this target:**
-
+A score of at least .20 can help with having a good separation between what could be labelled as AI and human. This makes the classifications more meaningful.
 
 
 ---
@@ -69,23 +69,21 @@ Two things worth knowing before you pick numbers:
 ## 3.
 
 <!-- Your criterion. -->
-
+In every evaluation run, the test set produces at least one high-confidence human, one unsure, and one high-confidence AI label.
 
 
 **Why this target:**
-
-
-
+This ensures each label is reachable, and makes it so the scoring thresholds do not make any label impossible to produce for each submission.
 ---
 
 ## 4.
 
 <!-- Your criterion. -->
-
+Every valid appeal changes the submission status to "under_review" and writes a reasoning entry in the audit log.
 
 
 **Why this target:**
-
+This helps with what could be potentially incorrect labelling be noted and marked instead of being ignored.
 
 
 ---
@@ -93,11 +91,11 @@ Two things worth knowing before you pick numbers:
 ## 5.
 
 <!-- Your criterion. -->
-
+Missing, empty, or enourmous text must return the HTTP 400 "bad request".
 
 
 **Why this target:**
-
+This helps with bad requests being handled properly and prevent from crashing the server.
 
 
 ---
