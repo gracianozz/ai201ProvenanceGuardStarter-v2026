@@ -131,12 +131,20 @@ The model signal scores a 0.10, while the style signal scores .70. Their average
      diagnostics. -->
 
 ```bash
-$ curl -X POST http://127.0.0.1:5000/submit \
-  -H "Content-Type: application/json" \
-  -d '{"text": "...", "creator_id": "..."}'
+curl.exe -X POST http://127.0.0.1:5000/submit -H "Content-Type: application/json" -d "{\"text\":\"The rain started before breakfast. I forgot my umbrella and arrived at work with wet shoes. At least the coffee was still warm.\",\"creator_id\":\"demo_writer\"}"
 ```
 
+
 ```json
+{
+  "confidence": 0.3792,
+  "content_id": "c_c77a5d177704",
+  "creator_id": "demo_writer",
+  "guess": "analyzed",
+  "label": "model score calculated",
+  "model_score": 0.3792,
+  "style_score": null
+}
 
 ```
 
