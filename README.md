@@ -54,27 +54,36 @@
 ### Signal one — the model signal
 
 **What it measures:**
+This signal measures perplexity. It measures how predictable the next likely word is against a model that chooses and compares words based on the text given. 
 
 **Why that might differ between human and AI writing:**
+Human writing can be more odd, and can change suddenly since it can be unpredictable. Things like odd choices of words and abrupt turns are more common in human writing.
 
 **What it can't see:**
+Its blind spot would be towards more simple and plain human writing, because it is more predictable.
+
 
 ### Signal two — the style signal
 
 **What it measures:**
+This signal measures the text based on how long the sentences are, the vocabulary repetition, and punctuation.
 
 **Why that might differ between human and AI writing:**
+Human writing compared to that of AI writing tends to be lumpier: smaller sentences, a narrower vocabulary, and the higher likeliness of typos in text.
 
 **What it can't see:**
+The model does not understand the meaning of the text. This means that things like punctuation, quotes, and splitting sentences can possibly change its score. 
 
 ### The combining rule
 
 <!-- Write the rule in words, then give the numbers. What happens when the two
      signals disagree? -->
 
-**The rule:**
+**The rule:** 
+When the two signals disagree, they should be averaged equally. A disagreement should produce a middle score and an "unsure" label.
 
 **The numbers:**
+Both signals range from 0-1. A lower score means its more likely to be human, and a higher score means its more likely to be AI. Averaging both the numbers helps balance both signals when choosing what to really label a submission. This will help it reach the "unsure" label when the two signals do disagree.
 
 **Where it lives:** `scoring.py::combine_signals`
 
@@ -82,7 +91,7 @@
      somewhere else, say where. -->
 
 **A case where my two signals split, and what my rule does with it:**
-
+The model signal scores a 0.10, while the style signal scores .70. Their average was (.10+./70) / 2 = .40. Since the result falls between the human threshold of .35 and the AI threshold of .65, it is labelled as "unsure".
 
 
 ---
