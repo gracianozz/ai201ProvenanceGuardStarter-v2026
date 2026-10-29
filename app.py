@@ -31,6 +31,8 @@ from flask import Flask, jsonify, request
 import audit
 import config
 import detector
+import stylometry
+import scoring
 
 app = Flask(__name__)
 
@@ -216,6 +218,9 @@ def submit():
     # python detector.py "some text"
     model_score = detector.model_signal(text)
 
+    style_score = stylometry.style_signal(text)
+    combined_score = scoring.combine_signals(model_score, style_score)
+
 
     # Step 4 - log the decision. The content_id is what /appeal needs later.
     content_id = f"c_{uuid.uuid4().hex[:12]}"
@@ -223,10 +228,10 @@ def submit():
         content_id=content_id,
         creator_id=creator_id,
         model_score=model_score,
+        style_score=style_score,
+        combined_score=combined_score,
         status="decided",
     )
-
-   
 
     # Step 1 - to get the route working without any logic
     return jsonify({
@@ -236,7 +241,8 @@ def submit():
         "confidence": model_score,
         "label": "model score calculated",
         "model_score": model_score,
-        "style_score": None,
+        "style_score": style_score,
+        "combined_score": combined_score,
     }), 200
 
 
