@@ -211,6 +211,11 @@ def submit():
      # Validate the request before passing text to the tokenizer.
     if not isinstance(text, str) or not text.strip():
         return jsonify({"error": "bad_request", "message": "Send JSON with a non-empty \"text\"."}), 400
+    if len(text) > config.SUBMIT_MAX_CHARS:
+        return jsonify({
+            "error": "bad_request",
+            "message": f"Text must be {config.SUBMIT_MAX_CHARS} characters or fewer.",
+        }), 400
         
 
     
