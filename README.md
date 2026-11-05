@@ -309,6 +309,8 @@ The worst outcome was the false positive on FP03. This is the worst becasue the 
 
 - **Note:** Criterion 4 was tested manually outside `scenarios.py`. Three valid appeals returned `under_review`, and each appeal’s reasoning was recorded in the audit log.
 
+- **Note:** To run all scenerios sucessfully, token limiting was turned OFF to properly evaluate and decide a verdict for all runs.
+
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
 | 1. my own writing | 1/10 | 3/10  | 3/10  | 3/10 | MISS |
@@ -457,20 +459,31 @@ All 3 misses have one pattern, they all fail at the signals and combining rule s
 ## The Improvement
 
 **What I changed:**
+I widened the unsure threshold from to be up to .75. This means the AI threshold his now .75-1.
 
 **Which diagnosis pointed at it:**
+It pointed at the criterion 1 diagnosis which showed some human writing that was incorrectly labelled 'ai'. Raising the threshold gives human writing more of a chance of recieving the 'unsure' label instead of being confidently labelled 'ai'.
 
 ### Attack Run — After
 
 <!-- Same format. `run_attacks.py --label after` -->
 
+| Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
+|---|---|---|---|---|---|
+| 1. my own writing | 1/10 | 0/10  | 0/10 |  0/10 | PASS |
+| 2. score spread | >=.20 | .0193  | .0193  | .0193 | MISS |
+| 3. label coverage | At least 1 AI, 1 Unsure, 1 human label | Unsure only | Unsure only  | Unsure only | MISS |
+| 4. appeal path | Every appeal changes to under_review and has reasoning | 3/3 | 3/3 | 3/3 | PASS |
+| 5. bad input | Missing, empty, or enormous text returns 400 | All 3 returned 400  | All 3 returned 400  | All 3 returned 400  | PASS |
 
 
 **Did it help, and how do I know:**
 
 <!-- Widening the unsure band usually fixes one problem and creates another.
      Reporting that trade honestly is worth full credit. -->
+Widening the unsure threshold made it so the first criterion passes. No human writing was labelled as 'ai', which gave the human writing a chance at being labelled 'unsure' instead of having a higher score that falls into the 'ai' range.
 
+However, the change did weaken Criterion 3. The AI sample scored below the new .75 threshold mark, so all 3 samples in all 3 runs recieved 'unsure'. This means the system reduced false psotiives, but lost access towards the 'ai' labels for the test inputs.
 
 
 ---
@@ -479,8 +492,9 @@ All 3 misses have one pattern, they all fail at the signals and combining rule s
 
 <!-- For each attack still getting through and each criterion still missed:
      what you'd do, and why you stopped. -->
+The scoring pipeline is still an issue. Criterion 3 still fails because the scoring for the human, borderline, and ai samples all fall in the 'unsure' range. Criterion 2 also still remains broken, since the average scores for known human and ai writing differ about .0193, which is far below the .20 goal. The signals do not help to clearly distinguish the human and ai writing enough.
 
-
+Something I would do to try and fix these issues would be to improve the calibration of the model and style signals using known human and known ai samples. I would try to reweight these signals based on those results. Changing the style signal to be higher can help with identifying differences in sentence structure and grammar. 
 
 **The trade I'd make if this ran for real:**
 
