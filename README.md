@@ -230,6 +230,34 @@ Copilot explained that two signals are used, the model signal and style signal. 
 This helped me understand what each model can't see and helped me with implementing the combining rule for cases when the two signals disagree.
 
 
+
+
+
+**UNIT 8 -HOW I USED AI**
+**Moment 1**
+- *What I asked for:*
+I asked Claude to help me summarize the confidence scores towards my criterion 2. 
+
+- *What came back:*
+Copilot helped me average the numbers between both the 10 human texts and the 10 ai texts, and gave me the difference in combined scores, which was .0193.
+
+- *What I changed:*
+This helped me analyze the combined score difference and helped me fill out the 3 runs for my before and after logs. This helped me determine whether the criterion was a pass or miss.
+
+
+
+**Moment 2**
+- *What I asked for:*
+I asked copilot to generate the ai text portions for my texts in scenarios.py
+
+- *What came back:*
+Copilot successfully added 11 AI generated texts to be tested against my criteria.
+
+- *What I changed:*
+This helped me analyze the overall results of each of the runs. This helped me produce the log charts and decide the verdicts for the before and after logs.
+
+
+
 <!-- ═══════════════════════ UNIT 8 — THE TEST ═══════════════════════ -->
 
 ---
@@ -500,7 +528,7 @@ Something I would do to try and fix these issues would be to improve the calibra
 
 <!-- Two sentences. Fewer wrong accusations means more AI text getting through.
      Say which way you'd go and WHO PAYS FOR IT. -->
-
+If this ran for real, I would prioritize avoiding false-positives towards human writers, even if that allowed more AI to pass as unsure or human. This way, writers would be protected from losing any credit for their original work due to an incorrect label.
 
 
 <!-- ═════════════════════════════════════════════════════════════════════
