@@ -236,13 +236,14 @@ This helped me understand what each model can't see and helped me with implement
 
 ## Rate Limiting
 
-**My limits:** ___ per minute, ___ per day
+**My limits:** 5 per minute, 50 per day
 
 **Why those numbers and not others:**
 <!-- Think about two people: a real writer submitting their own work a few
      times an hour, and a script sending a thousand variations to map your
      thresholds. Your numbers have to be liveable for the first and hostile to
      the second. -->
+I chose 5 submissions per minute because a real writer should have enough time to submit a few revisions without being blocked. I chose 50 submissions per day to allow regular daily use while limiting spam and automated attacks that try to repeatedly test the system.
 
 **What a caller counts as:** <!-- per address, or per creator_id? They fail
 differently — one script can look like a thousand callers, and one household
@@ -251,6 +252,8 @@ can look like one. -->
 **The run of status codes when I pushed past it:**
 
 <!-- python run_attacks.py --flood 15 -->
+
+200 200 200 200 200 429 429 429 429 429 429 429 429 429 429
 
 ```
 
