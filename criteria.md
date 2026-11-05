@@ -45,9 +45,11 @@ Two things worth knowing before you pick numbers:
 ## 1.
 
 <!-- Your criterion. It must name a number. -->
-For 10 pieces of human writing, no more than 1 is labelled has a combined score of .65 or more, which is labelled as high-confidence AI.
+Original: For 10 pieces of human writing, no more than 1 is labelled has a combined score of .65 or more, which is labelled as high-confidence AI.
 
+Revised: For 10 pieces of human writing in scenarios.py, under the "my own writing" scenario, no more than 1 labelled has a combined score of .65 or more, which is labelled as high-confidence AI.
 
+Why: I named the exact corpus so another person can run the same 10 samples and verify the results.
 **Why this target:**
 This helps with real human writing being wrongly called AI. There may be cases where the writing can be simple and plain, which is why there is a threshold of 1/10.
 
